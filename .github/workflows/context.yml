@@ -1,0 +1,8 @@
+name : To Display the even details
+on: issues
+jobs:
+    Details:
+        runs-on: ubuntu-latest
+        steps:
+            - name: To display the event details
+              run: echo "{{ toJSON(github).event }}"
