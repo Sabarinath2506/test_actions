@@ -1,7 +1,7 @@
 name: To init, Test and Deploy the code
 on: push
 jobs:
-    Deploy:
+    Lint:
         runs-on: ubuntu-latest
         steps:
             - name: copy the code
@@ -13,9 +13,32 @@ jobs:
             - name: run lint
               run: npm run lint
 
+    Test:
+        needs: Lint
+        runs-on: ubuntu-latest
+        steps:
+            - name: copy the code
+              uses: actions/checkout@v3
+
+            - name: install the dependencies
+              run: npm ci
+
             - name: test the code
               run: npm run test
 
+    Deploy:
+        needs: Test
+        runs-on: ubuntu-latest
+        steps:
+            - name: copy the code
+              uses: actions/checkout@v3
+
+            - name: install the dependencies
+              run: npm ci
+
             - name: build the code
               run: npm run build
+
+            - name: Deploy the code
+              run: echo "Deploying the code...."
 
