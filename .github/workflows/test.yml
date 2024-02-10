@@ -1,0 +1,21 @@
+name: To init, Test and Deploy the code
+on: push
+jobs:
+    Deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - name: copy the code
+              uses: actions/checkout@v3
+
+            - name: install the dependencies
+              run: npm ci
+
+            - name: run lint
+              run: npm run lint
+
+            - name: test the code
+              run: npm run test
+
+            - name: build the code
+              run: npm run build
+
